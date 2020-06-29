@@ -11,11 +11,19 @@ namespace Aula27_28_29_30
 
         private const string PATH = "Database/Produto.csv";
 
-        //criando pasta Database manualmente
         public Produto()
         {
 
-            if(!File.Exists(PATH))
+            //DESAFIO
+            string pasta = PATH.Split('/')[0]; //Criando array com o arquivo Database
+
+            if(!Directory.Exists(pasta))//Se o diretório não existe, crie o diretório
+            {
+                Directory.CreateDirectory(pasta);
+            }
+
+
+            if(!File.Exists(PATH))//criando pasta Database manualmente
             {
                 File.Create(PATH).Close();
             }
