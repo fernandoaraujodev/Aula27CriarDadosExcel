@@ -19,6 +19,9 @@ namespace Aula27_28_29_30
             //Remover todos os produtos com esse nome
             p.Remover("11 Cidades - Axel Torres");
 
+            //Filtrar produto com o termo
+            p.Filtrar("Pirâmide Invertida");
+
             //Instanciando a lista de produto
             List<Produto> lista1 = new List<Produto>();
             lista1 = p.Ler();
