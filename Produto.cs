@@ -57,7 +57,7 @@ namespace Aula27_28_29_30
         public List<Produto> Ler(){
 
             //Criamos uma lista de produtos
-            List<Produto> produtos = new List<Produto>();
+            List<Produto> produto1 = new List<Produto>();
 
             //Transformamos as linhas encontradas em uma array de strings
             string [] lista = File.ReadAllLines(PATH);
@@ -75,12 +75,57 @@ namespace Aula27_28_29_30
                 prod.Preco  = float.Parse (SepararDados(dados[2]));
 
                 //Adicionar o produto tratado na lista                
-                produtos.Add(prod);
+                produto1.Add(prod);
 
             }
 
-            return produtos;
+            return produto1;
 
+        }
+
+        /// <summary>
+        /// Remove uma ou mais linhas que contenham o termo
+        /// </summary>
+        /// <param name="_termo">termo para ser buscado</param>
+        public void Remover(string _termo){
+
+            // Criamos uma lista que servirá como uma espécie de backup para as linhas do csv
+            List<string> linhas = new List<string>();
+
+            // Utilizamos a bliblioteca StreamReader para ler nosso .csv
+            using(StreamReader arquivo = new StreamReader(PATH))
+            {
+                string linha;
+                while((linha = arquivo.ReadLine()) != null)
+                {
+                    linhas.Add(linha);
+                }
+            }
+
+            // Removemos as linhas que tiverem o termo passado como argumento
+            // Cod= 1; Nome = AudioBook Revolta de Atlas; Preco = 21,98
+            // AudioBook Revolta de Atlas 
+            linhas.RemoveAll(l => l.Contains(_termo));
+
+            // Reescrevemos nosso csv do zero
+            using(StreamWriter output = new StreamWriter(PATH))
+            {
+                foreach(string ln in linhas)
+                {
+                    output.Write(ln + "\n");
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// Busca de produto
+        /// </summary>
+        /// <param name="_nome"></param>
+        /// <returns></returns>
+        public List<Produto> Filtrar(string _nome){
+            return Ler().FindAll( a => a.Nome == _nome);
         }
 
 
@@ -98,6 +143,6 @@ namespace Aula27_28_29_30
 
         }
 
-        
+    
     }
 }
