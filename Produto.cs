@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System;
+using System.Linq;
 
 namespace Aula27_28_29_30
 {
-    public class Produto
+    public class Produto : IProduto
     {
         
         public int Codigo {get;set;}
@@ -117,7 +118,32 @@ namespace Aula27_28_29_30
             }
         }
 
+        public void Alterar(Produto _produtoAlterado){
 
+            // Criamos uma lista de string para salvar as linhas no .csv
+            List<string> lines = new List<string>();
+
+            // Utilizamos o using para abrir e fechar o nosso arquivo com a base de dados
+            using(StreamReader file = new StreamReader(PATH)){
+
+                // Lemos o arquivo
+                string line;
+                while((line = file.ReadLine()) != null)
+                {
+                    lines.Add(line);
+                } 
+
+                // Removemos a linha com o código 
+                lines.Add(PrepararLinhaCSV(_produtoAlterado) );
+
+            }
+            
+            // Reescrevemos o arquivo
+            using (StreamWriter output = new StreamWriter(PATH) )
+            {
+                output.Write(string.Join(Environment.NewLine, lines.ToArray()));
+            }
+        }
 
         /// <summary>
         /// Busca de produto

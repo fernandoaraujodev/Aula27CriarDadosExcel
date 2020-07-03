@@ -16,11 +16,17 @@ namespace Aula27_28_29_30
             //Inserindo produto 
             p.Inserir(p);
 
+            Produto pAlterado = new Produto();
+            pAlterado.Codigo = 8;
+            pAlterado.Nome = "Diário de um banana";
+            pAlterado.Preco = 14.98f;
+            p.Alterar(pAlterado);
+
             //Remover todos os produtos com esse nome
-            p.Remover("11 Cidades - Axel Torres");
+            //p.Remover("11 Cidades - Axel Torres");
 
             //Filtrar produto com o termo
-            p.Filtrar("Pirâmide Invertida");
+            //p.Filtrar("Pirâmide Invertida");
 
             //Instanciando a lista de produto
             List<Produto> lista1 = new List<Produto>();
